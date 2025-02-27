@@ -2,29 +2,37 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ASP.Extensions
+namespace ASPax.Extensions
 {
     public static class ImageExtensions
     {
+        /// <summary>
+        /// Set the alpha of an image
+        /// </summary>
         public static void SetAlpha(this Image image, float alpha)
         {
             alpha = Mathf.Clamp01(alpha);
-            Color oldColor = image.color;
-            image.color = new Color(oldColor.r, oldColor.g, oldColor.b, alpha);
+            var oldColor = image.color;
+            image.color = new(oldColor.r, oldColor.g, oldColor.b, alpha);
         }
-
+        /// <summary>
+        /// Set the color animation lerping
+        /// </summary>
+        /// <param name="time">Time aniamtion</param>
+        /// <param name="monoBehaviour">Mono Behaviour referente.</param>
+        /// <remarks>Use <see cref="this"/> into class with <see cref="MonoBehaviour"/> inherited</remarks>
         public static void SetColorLerp(this Image image, Color a, Color b, float time, MonoBehaviour monoBehaviour)
         {
-            monoBehaviour.StartCoroutine(_run());
+            monoBehaviour.StartCoroutine(_routine());
 
-            IEnumerator _run()
+            IEnumerator _routine()
             {
-                float timeRunning = 0f;
+                var timeRunning = 0f;
 
                 while (timeRunning <= time)
                 {
                     timeRunning += Time.deltaTime;
-                    float t = timeRunning / time;
+                    var t = timeRunning / time;
                     image.color = Color.Lerp(a, b, t);
                     yield return null;
                 }
@@ -32,20 +40,25 @@ namespace ASP.Extensions
                 image.color = b;
             }
         }
-
+        /// <summary>
+        /// Set the color animation lerping
+        /// </summary>
+        /// <param name="time">Time aniamtion</param>
+        /// <param name="monoBehaviour">Mono Behaviour referente.</param>
+        /// <remarks>Use <see cref="this"/> into class with <see cref="MonoBehaviour"/> inherited</remarks>
         public static void SetColorLerp(this Image image, Color color, float time, MonoBehaviour monoBehaviour)
         {
-            monoBehaviour.StartCoroutine(_run());
+            monoBehaviour.StartCoroutine(_routine());
 
-            IEnumerator _run()
+            IEnumerator _routine()
             {
-                float timeRunning = 0f;
-                Color originalColor = image.color;
+                var timeRunning = 0f;
+                var originalColor = image.color;
 
                 while (timeRunning <= time)
                 {
                     timeRunning += Time.deltaTime;
-                    float t = timeRunning / time;
+                    var t = timeRunning / time;
                     image.color = Color.Lerp(originalColor, color, t);
                     yield return null;
                 }
@@ -53,26 +66,26 @@ namespace ASP.Extensions
                 image.color = color;
             }
         }
-
+        /// <summary>
+        /// Set the color animation lerping
+        /// </summary>
+        /// <param name="time">Time aniamtion</param>
+        /// <param name="monoBehaviour">Mono Behaviour referente.</param>
+        /// <remarks>Use <see cref="this"/> into class with <see cref="MonoBehaviour"/> inherited</remarks>
         public static void SetAlphaLerp(this Image image, float alpha, float time, MonoBehaviour monoBehaviour)
         {
-            if (alpha < 0f || alpha > 1f)
-            {
-                Debug.LogWarning($"The value of {nameof(alpha)} must be between 0 and 1 but the value is {alpha}!", monoBehaviour);
-                return;
-            }
+            alpha = Mathf.Clamp01(alpha);
+            monoBehaviour.StartCoroutine(_routine());
 
-            monoBehaviour.StartCoroutine(_run());
-
-            IEnumerator _run()
+            IEnumerator _routine()
             {
-                float timeRunning = 0f;
-                float originalAlpha = image.color.a;
+                var timeRunning = 0f;
+                var originalAlpha = image.color.a;
 
                 while (timeRunning <= time)
                 {
                     timeRunning += Time.deltaTime;
-                    float t = timeRunning / time;
+                    var t = timeRunning / time;
                     image.SetAlpha(Mathf.Lerp(originalAlpha, alpha, t));
                     yield return null;
                 }
@@ -80,24 +93,27 @@ namespace ASP.Extensions
                 image.SetAlpha(alpha);
             }
         }
-
+        /// <summary>
+        /// Set the fill amount animation lerping
+        /// </summary>
+        /// <param name="time">Total time of the animation</param>
+        /// <param name="isIncreasing">If true is increasing</param>
+        /// <param name="monoBehaviour">Mono Behaviour referente.</param>
+        /// <remarks>Use <see cref="this"/> into class with <see cref="MonoBehaviour"/> inherited</remarks>
         public static void SetFillAmountLerp(this Image image, float time, bool isIncreasing, MonoBehaviour monoBehaviour)
         {
-            monoBehaviour.StartCoroutine(_run());
+            monoBehaviour.StartCoroutine(_routine());
 
-            IEnumerator _run()
+            IEnumerator _routine()
             {
-                float timeRunning;
-                int a, b;
-
-                timeRunning = 0f;
-                a = isIncreasing ? 0 : 1;
-                b = isIncreasing ? 1 : 0;
+                var timeRunning = 0f;
+                var a = isIncreasing ? 0 : 1;
+                var b = isIncreasing ? 1 : 0;
 
                 while (timeRunning <= time)
                 {
                     timeRunning += Time.deltaTime;
-                    float t = timeRunning / time;
+                    var t = timeRunning / time;
                     image.fillAmount = Mathf.Lerp(a, b, t);
                     yield return null;
                 }
@@ -105,26 +121,21 @@ namespace ASP.Extensions
                 image.fillAmount = b;
             }
         }
-
+        /// <summary>
+        /// Set Color from Gradient
+        /// </summary>
+        /// <param name="time">Gradient Time between 0 and 1 - Is not time animation!</param>
+        /// <param name="colors">The colors into gradient</param>
         public static void SetColorFromGradient(this Image image, float alpha, float time, params Color[] colors)
         {
-            int length = colors.Length;
             GradientColorKey[] GCK;
-            GradientAlphaKey[] GAK;
-            Gradient gradient = new();
-
-            GAK = new GradientAlphaKey[1]
-            {
-                new(Mathf.Clamp01(alpha), 0.5f)
-            };
+            var length = colors.Length;
+            var gradient = new Gradient();
+            var GAK = new GradientAlphaKey[1] { new(Mathf.Clamp01(alpha), 0.5f) };
 
             if (length == 1)
             {
-                GCK = new GradientColorKey[2]
-                {
-                new(colors[0], 0), new(colors[0], 1)
-                };
-
+                GCK = new GradientColorKey[2] { new(colors[0], 0), new(colors[0], 1) };
                 gradient.SetKeys(GCK, GAK);
                 image.color = gradient.Evaluate(Mathf.Clamp01(time));
                 return;

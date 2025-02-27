@@ -30,13 +30,13 @@ namespace ASPax.Extensions
             if (coroutine[0] == null)
             {
                 values[0] = canvasGroup.alpha;
-                coroutine[0] = monoBehaviour.StartCoroutine(_fadeIn());
+                coroutine[0] = monoBehaviour.StartCoroutine(_routine());
             }
 
-            IEnumerator _fadeIn()
+            IEnumerator _routine()
             {
-                float runningTime, t, alpha;
-                runningTime = 0f;
+                float t, alpha;
+                var runningTime = 0f;
 
                 while (runningTime < totalTime)
                 {
@@ -61,13 +61,13 @@ namespace ASPax.Extensions
         /// <param name="monoBehaviour">Mono Behaviour to Coroutine (use this)</param>
         public static void FadeIn(this CanvasGroup canvasGroup, float totalTime, float alpha, MonoBehaviour monoBehaviour)
         {
-            coroutine[1] ??= monoBehaviour.StartCoroutine(_fadeIn());
+            coroutine[1] ??= monoBehaviour.StartCoroutine(_routine());
 
-            IEnumerator _fadeIn()
+            IEnumerator _routine()
             {
-                float runningTime, t, runningAlpha;
+                float t, runningAlpha;
+                var runningTime = 0f;
 
-                runningTime = 0f;
                 alpha = Mathf.Clamp01(alpha);
 
                 while (runningTime < totalTime)
@@ -92,12 +92,12 @@ namespace ASPax.Extensions
         /// <param name="monoBehaviour">Mono Behaviour to Coroutine (use this)</param>
         public static void FadeIn(this CanvasGroup[] canvasGroups, float totalTime, MonoBehaviour monoBehaviour)
         {
-            coroutine[2] ??= monoBehaviour.StartCoroutine(_fadeIn());
+            coroutine[2] ??= monoBehaviour.StartCoroutine(_routine());
 
-            IEnumerator _fadeIn()
+            IEnumerator _routine()
             {
-                float runningTime, t, alpha;
-                runningTime = 0f;
+                float t, alpha;
+                var runningTime = 0f;
 
                 while (runningTime < totalTime)
                 {
@@ -122,13 +122,13 @@ namespace ASPax.Extensions
         /// <param name="monoBehaviour">Mono Behaviour to Coroutine (use this)</param>
         public static void FadeIn(this CanvasGroup[] canvasGroups, float totalTime, float alpha, MonoBehaviour monoBehaviour)
         {
-            coroutine[3] ??= monoBehaviour.StartCoroutine(_fadeIn());
+            coroutine[3] ??= monoBehaviour.StartCoroutine(_routine());
 
-            IEnumerator _fadeIn()
+            IEnumerator _routine()
             {
-                float runningTime, t, runningAlpha;
+                float t, runningAlpha;
+                var runningTime = 0f;
 
-                runningTime = 0f;
                 alpha = Mathf.Clamp01(alpha);
 
                 while (runningTime < totalTime)
@@ -153,13 +153,13 @@ namespace ASPax.Extensions
         /// <param name="monoBehaviour">Mono Behaviour to Coroutine (use this)</param>
         public static void FadeOut(this CanvasGroup canvasGroup, float totalTime, MonoBehaviour monoBehaviour)
         {
-            coroutine[4] ??= monoBehaviour.StartCoroutine(_fadeOut());
+            coroutine[4] ??= monoBehaviour.StartCoroutine(_routine());
 
-            IEnumerator _fadeOut()
+            IEnumerator _routine()
             {
-                float runningTime, t, alpha, previousAlpha;
-                runningTime = 0f;
-                previousAlpha = canvasGroup.alpha;
+                float t, alpha;
+                var runningTime = 0f;
+                var previousAlpha = canvasGroup.alpha;
 
                 while (runningTime < totalTime)
                 {
@@ -184,13 +184,13 @@ namespace ASPax.Extensions
         /// <param name="monoBehaviour">Mono Behaviour to Coroutine (use this)</param>
         public static void FadeOut(this CanvasGroup[] canvasGroups, float totalTime, MonoBehaviour monoBehaviour)
         {
-            coroutine[5] ??= monoBehaviour.StartCoroutine(_fadeOut());
+            coroutine[5] ??= monoBehaviour.StartCoroutine(_routine());
 
-            IEnumerator _fadeOut()
+            IEnumerator _routine()
             {
-                float runningTime, t, alpha, previousAlpha;
-                runningTime = 0f;
-                previousAlpha = 1f;
+                float t, alpha;
+                var runningTime = 0f;
+                var previousAlpha = 1f;
 
                 while (runningTime < totalTime)
                 {
@@ -220,9 +220,9 @@ namespace ASPax.Extensions
                 coroutine[6] = monoBehaviour.StartCoroutine(_routine(canvasGroup, frequence));
             }
 
-            IEnumerator _routine(CanvasGroup canvasGroup, float frequence)
+            static IEnumerator _routine(CanvasGroup canvasGroup, float frequence)
             {
-                float t = 0;
+                var t = 0f;
 
                 do
                 {

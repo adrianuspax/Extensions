@@ -1,10 +1,26 @@
 using System.Linq;
 using UnityEngine;
 
-namespace ASP.Extensions
+namespace ASPax.Extensions
 {
     public static class ComponentExtensions
     {
+        /// <summary>
+        /// Get the children of a component
+        /// </summary>
+        /// <returns>Transform</returns>
+        public static Transform GetChildren(this Component component, params int[] children)
+        {
+            var transform = component.transform;
+
+            if (children.IsEmpty())
+                return transform;
+
+            for (var i = 0; i < children.Length; i++)
+                transform = transform.GetChild(children[i]);
+
+            return transform;
+        }
         /// <summary>
         /// Checks if a component is null
         /// </summary>
@@ -116,7 +132,7 @@ namespace ASP.Extensions
         {
             if (variables.IsNullOrEmpty())
             {
-                Transform transform = component.transform;
+                var transform = component.transform;
 
                 if (childrenIndexes.IsEmpty())
                 {
@@ -124,7 +140,7 @@ namespace ASP.Extensions
                     return true;
                 }
 
-                for (int i = 0; i < childrenIndexes.Length; i++)
+                for (var i = 0; i < childrenIndexes.Length; i++)
                 {
                     transform = transform.GetChild(childrenIndexes[i]);
                 }
@@ -147,13 +163,13 @@ namespace ASP.Extensions
         {
             if (variables.IsNullOrEmpty())
             {
-                Transform header = component.transform;
+                var header = component.transform;
 
                 if (childrenIndexes.IsEmpty())
                 {
                     variables = new T[header.childCount];
 
-                    for (int i = 0; i < variables.Length; i++)
+                    for (var i = 0; i < variables.Length; i++)
                     {
                         variables[i] = header.GetChild(i).GetComponentInChildren<T>();
                     }
@@ -161,14 +177,14 @@ namespace ASP.Extensions
                     return true;
                 }
 
-                for (int i = 0; i < childrenIndexes.Length; i++)
+                for (var i = 0; i < childrenIndexes.Length; i++)
                 {
                     header = header.GetChild(childrenIndexes[i]);
                 }
 
                 variables = new T[header.childCount];
 
-                for (int i = 0; i < variables.Length; i++)
+                for (var i = 0; i < variables.Length; i++)
                 {
                     variables[i] = header.GetChild(i).GetComponentInChildren<T>();
                 }

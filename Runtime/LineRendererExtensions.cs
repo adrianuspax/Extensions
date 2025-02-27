@@ -62,7 +62,7 @@ namespace ASP.Extensions
             {
                 if (lineRenderer.materials[index].HasProperty(TEXTURE_ST))
                 {
-                    Vector4 value = new(1f, 1f, offset.x, offset.y);
+                    var value = new Vector4(1f, 1f, offset.x, offset.y);
                     lineRenderer.GetPropertyBlock(_materialPropertyBlock, index);
                     _materialPropertyBlock.SetVector(TEXTURE_ST, value);
                     lineRenderer.SetPropertyBlock(_materialPropertyBlock, index);
@@ -94,13 +94,13 @@ namespace ASP.Extensions
                 if (lineRenderer.materials[index].HasProperty(TEXTURE_ST))
                 {
                     _monoBehaviour = monoBehaviour;
-                    _coroutine ??= monoBehaviour.StartCoroutine(_run());
+                    _coroutine ??= monoBehaviour.StartCoroutine(_routine());
                 }
             }
 
-            IEnumerator _run()
+            IEnumerator _routine()
             {
-                float time = 0f;
+                var time = 0f;
 
                 do
                 {

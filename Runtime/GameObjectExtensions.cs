@@ -1,10 +1,26 @@
 using System.Linq;
 using UnityEngine;
 
-namespace ASP.Extensions
+namespace ASPax.Extensions
 {
     public static class GameObjectExtensions
     {
+        /// <summary>
+        /// Get the children of a game object
+        /// </summary>
+        /// <returns>Transform</returns>
+        public static Transform GetChildren(this GameObject gameObject, params int[] children)
+        {
+            var transform = gameObject.transform;
+
+            if (children.IsEmpty())
+                return transform;
+
+            for (var i = 0; i < children.Length; i++)
+                transform = transform.GetChild(children[i]);
+
+            return transform;
+        }
         /// <summary>
         /// Checks if a Game Object is null
         /// </summary>
@@ -21,7 +37,7 @@ namespace ASP.Extensions
         /// <returns>true if array components is null or empty</returns>
         public static bool IsNullOrEmpty(this GameObject[] gameObjects)
         {
-            if (gameObjects == null)
+            if (gameObjects == null || gameObjects.Length == 0)
                 return false;
             else
                 return gameObjects.All(obj => obj == null);
@@ -34,7 +50,7 @@ namespace ASP.Extensions
         /// <returns>"attributed" returns the value assigned to the variable and "wasAttributed" returns true if the assignment to the variable occurred.</returns>
         public static bool ComparativeAssignment(this GameObject parameter, ref GameObject globalVariable)
         {
-            bool isEquals = parameter == globalVariable;
+            var isEquals = parameter == globalVariable;
 
             if (isEquals)
                 return false;

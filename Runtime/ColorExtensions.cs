@@ -9,10 +9,14 @@ namespace ASPax.Extensions
         /// </summary>
         public static void SetAlpha(this Color color, float alpha)
         {
+            Color newColor;
             alpha = Mathf.Clamp01(alpha);
-            Color newColor = color;
+
+            newColor = color;
             newColor.a = alpha;
+#pragma warning disable IDE0059
             color = newColor;
+#pragma warning restore IDE0059
         }
         /// <summary>
         /// Set the alpha of the colors

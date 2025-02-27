@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace ASP.Extensions
+namespace ASPax.Extensions
 {
     public static class GenericExtensions
     {

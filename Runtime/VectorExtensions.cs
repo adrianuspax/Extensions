@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ASP.Extensions
+namespace ASPax.Extensions
 {
     /// <summary>
     /// Extension methods for Vectors

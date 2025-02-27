@@ -27,7 +27,7 @@ namespace ASPax.Extensions
             }
 
             if (length == null)
-                UnityEngine.Debug.LogWarning($"Could not find an animatorClip whose name is {clipName} in the {animator.name} animation!");
+                Debug.LogWarning($"Could not find an animatorClip whose name is {clipName} in the {animator.name} animation!");
 
             return length;
         }
@@ -53,7 +53,7 @@ namespace ASPax.Extensions
             }
 
             if (length == null)
-                UnityEngine.Debug.LogWarning($"Could not find an animatorClip whose id is {id} in the {animator.name} animation!", default);
+                Debug.LogWarning($"Could not find an animatorClip whose id is {id} in the {animator.name} animation!", default);
 
             return length;
         }
@@ -64,7 +64,7 @@ namespace ASPax.Extensions
         /// <returns>Time in seconds of sum the animation clip</returns>
         public static float? GetSumClipsLength(this Animator animator, params string[] clipNames)
         {
-            float? length;
+            float? length = null;
 
             foreach (string clipName in clipNames)
             {
@@ -83,9 +83,9 @@ namespace ASPax.Extensions
         /// </summary>
         /// <param name="ids">IDs of the animation clip you want to know the animation time sum of</param>
         /// <returns>Time in seconds of sum the animation clip</returns>
-        public static float GetSumClipsLength(this Animator animator, params int[] ids)
+        public static float? GetSumClipsLength(this Animator animator, params int[] ids)
         {
-            float? length;
+            float? length = null;
 
             foreach (var id in ids)
             {

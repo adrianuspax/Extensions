@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace ASP.Extensions
+namespace ASPax.Extensions
 {
     /// <summary>
     /// Code extension for Text Mesh Pro UGUI
@@ -16,7 +16,7 @@ namespace ASP.Extensions
         public static void SetAlpha(this TextMeshProUGUI textMeshPro, float alpha)
         {
             alpha = Mathf.Clamp01(alpha);
-            Color color = textMeshPro.color;
+            var color = textMeshPro.color;
             color.a = alpha;
             textMeshPro.color = color;
         }
@@ -29,22 +29,15 @@ namespace ASP.Extensions
         /// <param name="colors">colors of gradient</param>
         public static void SetColorFromGradient(this TextMeshProUGUI tmp, float alpha, float time, params Color[] colors)
         {
-            int length = colors.Length;
             GradientColorKey[] GCK;
-            GradientAlphaKey[] GAK;
-            Gradient gradient = new();
+            var length = colors.Length;
+            var gradient = new Gradient();
 
-            GAK = new GradientAlphaKey[1]
-            {
-                new(Mathf.Clamp01(alpha), 0.5f)
-            };
+            var GAK = new GradientAlphaKey[1] { new(Mathf.Clamp01(alpha), 0.5f) };
 
             if (length == 1)
             {
-                GCK = new GradientColorKey[2]
-                {
-                    new(colors[0], 0), new(colors[0], 1)
-                };
+                GCK = new GradientColorKey[2] { new(colors[0], 0), new(colors[0], 1) };
 
                 gradient.SetKeys(GCK, GAK);
                 tmp.color = gradient.Evaluate(Mathf.Clamp01(time));
