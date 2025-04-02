@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace ASP.Extensions
+namespace ASPax.Extensions
 {
     public static class LineRendererExtensions
     {
