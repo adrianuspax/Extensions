@@ -7,3 +7,4 @@
 # 1.0.2 - Changing Folder
 # 2.0.0 - Hotfix LineRendererExtensions.cs
 # 3.0.0 - HotFix CanvasGroup
+# 3.0.1 - HotFix Extensions Primitives: Truncation

@@ -119,7 +119,6 @@ namespace ASPax.Extensions
         /// <returns>Round, Floor, Ceil or (int)float</returns>
         public static (float Round, float Floor, float Ceil, float Integer) Truncation(this float @float, int digits)
         {
-            @float = Mathf.Abs(@float);
             float a, b;
 
             b = Mathf.Pow(10f, digits);
