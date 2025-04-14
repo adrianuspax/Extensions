@@ -18,3 +18,4 @@
 - Add functions to arrays Comparactive Assigments
 # 5.0.0 HotFix
 - Conflict Enum and Estruct extensions
+# 5.0.1 HotFix
