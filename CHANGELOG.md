@@ -16,3 +16,5 @@
 # 4.0.1 - Add string Comparative Assigments
 # 4.1.0 - Adjustments and new function
 - Add functions to arrays Comparactive Assigments
+# 5.0.0 HotFix
+- Conflict Enum and Estruct extensions
