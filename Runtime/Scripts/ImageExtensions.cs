@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,13 +8,30 @@ namespace ASPax.Extensions
     public static class ImageExtensions
     {
         /// <summary>
+        /// returns true if the image is default
+        /// </summary>
+        public static bool IsDefault(this Image image)
+        {
+            return image == default;
+        }
+        /// <summary>
+        /// Checks if a Image array is null or empty
+        /// </summary>
+        public static bool IsNullOrEmpty(this Image[] images)
+        {
+            if (images == null || images.Length == 0)
+                return true;
+            else
+                return images.All(obj => obj == null);
+        }
+        /// <summary>
         /// Set the alpha of an image
         /// </summary>
         public static void SetAlpha(this Image image, float alpha)
         {
             alpha = Mathf.Clamp01(alpha);
-            var oldColor = image.color;
-            image.color = new(oldColor.r, oldColor.g, oldColor.b, alpha);
+            var color = image.color;
+            image.color = new(color.r, color.g, color.b, alpha);
         }
         /// <summary>
         /// Set the color animation lerping

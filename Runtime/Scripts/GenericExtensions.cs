@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace ASPax.Extensions
 {
+    /// <summary>
+    /// Generic Extensions
+    /// </summary>
     public static class GenericExtensions
     {
         /// <summary>
@@ -23,8 +26,8 @@ namespace ASPax.Extensions
         /// <returns>true if array components is null or empty</returns>
         public static bool IsNullOrEmpty<T>(this T[] objects) where T : Object
         {
-            if (objects == null)
-                return false;
+            if (objects == null || objects.Length == 0)
+                return true;
             else
                 return objects.All(obj => obj == null);
         }
@@ -35,9 +38,9 @@ namespace ASPax.Extensions
         /// <param name="parameter">The parameter that will be compared</param>
         /// <param name="globalVariable">The variable that will be compared and then assigned if the values are not equal.</param>
         /// <returns>"attributed" returns the value assigned to the variable and "wasAttributed" returns true if the assignment to the variable occurred.</returns>
-        public static bool ComparativeAssignment<T>(this T parameter, ref T globalVariable)
+        public static bool ComparativeAssignment<T>(this T parameter, ref T globalVariable) where T : Object
         {
-            if (parameter.Equals(globalVariable))
+            if (parameter == globalVariable)
                 return false;
 
             globalVariable = parameter;

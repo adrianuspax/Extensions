@@ -1,9 +1,30 @@
+using System.Linq;
 using UnityEngine;
 
 namespace ASPax.Extensions
 {
+    /// <summary>
+    /// Extension methods for Animator
+    /// </summary>
     public static class AnimatorExtensions
     {
+        /// <summary>
+        /// Checks if a Animator is null
+        /// </summary>
+        public static bool IsNull(this Animator animator)
+        {
+            return animator == null;
+        }
+        /// <summary>
+        /// Checks if a Animator array is null or empty
+        /// </summary>
+        public static bool IsNullOrEmpty(this Animator[] animators)
+        {
+            if (animators == null || animators.Length == 0)
+                return true;
+            else
+                return animators.All(obj => obj == null);
+        }
         /// <summary>
         /// Returns the time of the animation clip
         /// </summary>

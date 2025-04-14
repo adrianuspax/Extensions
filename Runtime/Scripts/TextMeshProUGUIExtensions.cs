@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +9,23 @@ namespace ASPax.Extensions
     /// </summary>
     public static class TextMeshProUGUIExtensions
     {
+        /// <summary>
+        /// Check if Text Mesh Pro is null
+        /// </summary>
+        public static bool IsNull(this TextMeshProUGUI textMeshPro)
+        {
+            return textMeshPro == null;
+        }
+        /// <summary>
+        /// Checks if all the elements in the array are null or if the array is empty
+        /// </summary>
+        public static bool IsNullOrEmpty(this TextMeshProUGUI[] textMeshPros)
+        {
+            if (textMeshPros == null || textMeshPros.Length == 0)
+                return true;
+            else
+                return textMeshPros.All(obj => obj == null);
+        }
         /// <summary>
         /// Set Text Mesh Pro's alpha directly
         /// </summary>

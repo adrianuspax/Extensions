@@ -3,17 +3,21 @@ using UnityEngine;
 
 namespace ASPax.Extensions
 {
+    /// <summary>
+    /// Component Extensions
+    /// </summary>
     public static class ComponentExtensions
     {
+        private static bool _releaseAssignments = false;
         /// <summary>
         /// Get the children of a component
         /// </summary>
         /// <returns>Transform</returns>
-        public static Transform GetChildren(this Component component, params int[] children)
+        public static Transform GetChildFromParents(this Component component, params int[] children)
         {
             var transform = component.transform;
 
-            if (children.IsEmpty())
+            if (children.IsNullOrEmpty())
                 return transform;
 
             for (var i = 0; i < children.Length; i++)
@@ -39,7 +43,7 @@ namespace ASPax.Extensions
         public static bool IsNullOrEmpty(this Component[] components)
         {
             if (components == null || components.Length == 0)
-                return false;
+                return true;
             else
                 return components.All(obj => obj == null);
         }
@@ -68,11 +72,11 @@ namespace ASPax.Extensions
         /// <returns>Returns true if the component is assigned, i.e. it was null</returns>
         public static bool GetComponentIfNull<T>(this Component component, ref T variable, params int[] childrenIndexes) where T : Component
         {
-            if (variable.IsNull())
+            if (variable.IsNull() || _releaseAssignments)
             {
                 Transform transform = component.transform;
 
-                if (childrenIndexes.IsEmpty())
+                if (childrenIndexes.IsNullOrEmpty())
                 {
                     variable = transform.GetComponent<T>();
                     return true;
@@ -99,11 +103,11 @@ namespace ASPax.Extensions
         /// <returns>Returns true if the component is assigned, i.e. it was null</returns>
         public static bool GetComponentInChildrenIfNull<T>(this Component component, ref T variable, params int[] childrenIndexes) where T : Component
         {
-            if (variable.IsNull())
+            if (variable.IsNull() || _releaseAssignments)
             {
                 Transform transform = component.transform;
 
-                if (childrenIndexes.IsEmpty())
+                if (childrenIndexes.IsNullOrEmpty())
                 {
                     variable = transform.GetComponentInChildren<T>();
                     return true;
@@ -130,11 +134,11 @@ namespace ASPax.Extensions
         /// <returns>Returns true if the component is assigned, i.e. it was null</returns>
         public static bool GetComponentsInAllChildrenIfNull<T>(this Component component, ref T[] variables, params int[] childrenIndexes) where T : Component
         {
-            if (variables.IsNullOrEmpty())
+            if (variables.IsNullOrEmpty() || _releaseAssignments)
             {
                 var transform = component.transform;
 
-                if (childrenIndexes.IsEmpty())
+                if (childrenIndexes.IsNullOrEmpty())
                 {
                     variables = transform.GetComponentsInChildren<T>();
                     return true;
@@ -161,11 +165,11 @@ namespace ASPax.Extensions
         /// <returns>Returns true if the component is assigned, i.e. it was null</returns>
         public static bool GetComponentsInChildrenHeadersIfNull<T>(this Component component, ref T[] variables, params int[] childrenIndexes) where T : Component
         {
-            if (variables.IsNullOrEmpty())
+            if (variables.IsNullOrEmpty() || _releaseAssignments)
             {
                 var header = component.transform;
 
-                if (childrenIndexes.IsEmpty())
+                if (childrenIndexes.IsNullOrEmpty())
                 {
                     variables = new T[header.childCount];
 
@@ -193,6 +197,14 @@ namespace ASPax.Extensions
             }
 
             return false;
+        }
+        /// <summary>
+        /// If true, the assigments will be forced
+        /// </summary>
+        public static bool IsAssigmentsForced
+        {
+            get => _releaseAssignments;
+            set => _releaseAssignments = value;
         }
     }
 }

@@ -1,10 +1,31 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace ASPax.Extensions
 {
+    /// <summary>
+    /// Canvas Group Extensions
+    /// </summary>
     public static class CanvasGroupExtensions
     {
+        /// <summary>
+        /// Checks if a Canvas Group is null
+        /// </summary>
+        public static bool IsNull(this CanvasGroup canvasGroup)
+        {
+            return canvasGroup == null;
+        }
+        /// <summary>
+        /// Checks if a Canvas Group array is null or empty
+        /// </summary>
+        public static bool IsNullOrEmpty(this CanvasGroup[] canvasGroups)
+        {
+            if (canvasGroups == null || canvasGroups.Length == 0)
+                return true;
+            else
+                return canvasGroups.All(obj => obj == null);
+        }
         /// <summary>
         /// Set alpha in Canvas Group
         /// </summary>

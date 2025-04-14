@@ -8,3 +8,7 @@
 # 2.0.0 - Hotfix LineRendererExtensions.cs
 # 3.0.0 - HotFix CanvasGroup
 # 3.0.1 - HotFix Extensions Primitives: Truncation
+# 4.0.0 - Adjustments, Add and HotFixies
+- Add new functions: Extensions Primitives and more for nullables variables
+- Adjustments in code
+- Fixies problems in EmptyOrNull functions

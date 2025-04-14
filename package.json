@@ -3,7 +3,7 @@
     "displayName": "ASPax Extensions",
     "description": "Scripts Extensions to Unity Projects",
     "category": "scripts extensions",
-    "version": "3.0.1",
+    "version": "4.0.0",
     "unity": "2017.1",
     "license": "MIT",
     "repository": {

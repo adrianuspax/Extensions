@@ -8,6 +8,22 @@ namespace ASPax.Extensions
     public static class VectorExtensions
     {
         /// <summary>
+        /// Checks if the vector is default
+        /// </summary>
+        public static bool IsDefault(this Vector3 vector)
+        {
+            return vector == default;
+        }
+        /// <summary>
+        /// Checks if the vector array is null or empty
+        /// </summary>
+        /// <param name="vectors"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this Vector3[] vectors)
+        {
+            return vectors == null || vectors.Length == 0;
+        }
+        /// <summary>
         /// Checks if any component of the vector - x, y or z - returns IsNaN
         /// </summary>
         /// <param name="vector">Three-dimensional vector</param>

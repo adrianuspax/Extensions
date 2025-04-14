@@ -9,11 +9,11 @@ namespace ASPax.Extensions
         /// Get the children of a game object
         /// </summary>
         /// <returns>Transform</returns>
-        public static Transform GetChildren(this GameObject gameObject, params int[] children)
+        public static Transform GetChildFromParents(this GameObject gameObject, params int[] children)
         {
             var transform = gameObject.transform;
 
-            if (children.IsEmpty())
+            if (children.IsNullOrEmpty())
                 return transform;
 
             for (var i = 0; i < children.Length; i++)
@@ -38,7 +38,7 @@ namespace ASPax.Extensions
         public static bool IsNullOrEmpty(this GameObject[] gameObjects)
         {
             if (gameObjects == null || gameObjects.Length == 0)
-                return false;
+                return true;
             else
                 return gameObjects.All(obj => obj == null);
         }
@@ -50,9 +50,7 @@ namespace ASPax.Extensions
         /// <returns>"attributed" returns the value assigned to the variable and "wasAttributed" returns true if the assignment to the variable occurred.</returns>
         public static bool ComparativeAssignment(this GameObject parameter, ref GameObject globalVariable)
         {
-            var isEquals = parameter == globalVariable;
-
-            if (isEquals)
+            if (parameter == globalVariable)
                 return false;
 
             globalVariable = parameter;
