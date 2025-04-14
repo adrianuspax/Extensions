@@ -84,5 +84,65 @@ namespace ASPax.Extensions
         {
             return vector.IsNull() || vector.IsNaN();
         }
+        /// <summary>
+        /// Compares elements of the same type and assigns the value of the parameter to the variable if the values are not equal.
+        /// </summary>
+        /// <typeparam name="T">Generic Type</typeparam>
+        /// <param name="parameter">The parameter that will be compared</param>
+        /// <param name="globalVariable">The variable that will be compared and then assigned if the values are not equal.</param>
+        /// <returns>"attributed" returns the value assigned to the variable and "wasAttributed" returns true if the assignment to the variable occurred.</returns>
+        public static bool ComparativeAssignment(this Vector2 parameter, ref Vector2 globalVariable)
+        {
+            if (parameter == globalVariable)
+                return false;
+
+            globalVariable = parameter;
+            return true;
+        }
+        /// <summary>
+        /// Compares elements of the same type and assigns the value of the parameter to the variable if the values are not equal.
+        /// </summary>
+        /// <typeparam name="T">Generic Type</typeparam>
+        /// <param name="parameter">The parameter that will be compared</param>
+        /// <param name="globalVariable">The variable that will be compared and then assigned if the values are not equal.</param>
+        /// <returns>"attributed" returns the value assigned to the variable and "wasAttributed" returns true if the assignment to the variable occurred.</returns>
+        public static bool ComparativeAssignment(this Vector2[] parameter, ref Vector2[] globalVariable)
+        {
+            if (parameter == globalVariable)
+                return false;
+
+            globalVariable = parameter;
+            return true;
+        }
+        /// <summary>
+        /// Compares elements of the same type and assigns the value of the parameter to the variable if the values are not equal.
+        /// </summary>
+        /// <typeparam name="T">Generic Type</typeparam>
+        /// <param name="parameter">The parameter that will be compared</param>
+        /// <param name="globalVariable">The variable that will be compared and then assigned if the values are not equal.</param>
+        /// <returns>"attributed" returns the value assigned to the variable and "wasAttributed" returns true if the assignment to the variable occurred.</returns>
+        public static bool ComparativeAssignment(this Vector3 parameter, ref Vector3 globalVariable)
+        {
+            if (parameter == globalVariable)
+                return false;
+
+            globalVariable = parameter;
+            return true;
+        }
+        /// <summary>
+        /// Compares elements of the same type and assigns the value of the parameter to the variable if the values are not equal.
+        /// </summary>
+        /// <typeparam name="T">Generic Type</typeparam>
+        /// <param name="parameter">The parameter that will be compared</param>
+        /// <param name="globalVariable">The variable that will be compared and then assigned if the values are not equal.</param>
+        /// <returns>"attributed" returns the value assigned to the variable and "wasAttributed" returns true if the assignment to the variable occurred.</returns>
+        public static bool ComparativeAssignment(this Vector3[] parameter, ref Vector3[] globalVariable)
+        {
+            if (parameter == globalVariable)
+                return false;
+
+            globalVariable = parameter;
+            return true;
+        }
     }
 }

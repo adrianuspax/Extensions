@@ -1,56 +1,30 @@
-using System.Linq;
-using UnityEngine;
-
 namespace ASPax.Extensions
 {
-    public static class GameObjectExtensions
+    /// <summary>
+    /// Generic Extensions
+    /// </summary>
+    public static class StructExtensions
     {
-        /// <summary>
-        /// Get the children of a game object
-        /// </summary>
-        /// <returns>Transform</returns>
-        public static Transform GetChildFromParents(this GameObject gameObject, params int[] children)
-        {
-            var transform = gameObject.transform;
-
-            if (children.IsNullOrEmpty())
-                return transform;
-
-            for (var i = 0; i < children.Length; i++)
-                transform = transform.GetChild(children[i]);
-
-            return transform;
-        }
-        /// <summary>
-        /// Checks if a Game Object is null
-        /// </summary>
-        /// <param name="gameObject">component</param>
-        /// <returns>true if the gameObject is null</returns>
-        public static bool IsNull(this GameObject gameObject)
-        {
-            return gameObject == null;
-        }
         /// <summary>
         /// Checks if all the elements in the array are null or if the array is empty
         /// </summary>
-        /// <param name="gameObjects">Generic Type Array</param>
+        /// <typeparam name="T">Generic Type</typeparam>
+        /// <param name="objects">Generic Type Array</param>
         /// <returns>true if array components is null or empty</returns>
-        public static bool IsNullOrEmpty(this GameObject[] gameObjects)
+        public static bool IsNullOrEmpty<T>(this T[] objects) where T : struct
         {
-            if (gameObjects == null || gameObjects.Length == 0)
-                return true;
-            else
-                return gameObjects.All(obj => obj == null);
+            return objects == null || objects.Length == 0;
         }
         /// <summary>
         /// Compares elements of the same type and assigns the value of the parameter to the variable if the values are not equal.
         /// </summary>
+        /// <typeparam name="T">Generic Type</typeparam>
         /// <param name="parameter">The parameter that will be compared</param>
         /// <param name="globalVariable">The variable that will be compared and then assigned if the values are not equal.</param>
         /// <returns>"attributed" returns the value assigned to the variable and "wasAttributed" returns true if the assignment to the variable occurred.</returns>
-        public static bool ComparativeAssignment(this GameObject parameter, ref GameObject globalVariable)
+        public static bool ComparativeAssignment<T>(this T parameter, ref T globalVariable) where T : struct
         {
-            if (parameter == globalVariable)
+            if (parameter.Equals(globalVariable))
                 return false;
 
             globalVariable = parameter;
@@ -59,12 +33,13 @@ namespace ASPax.Extensions
         /// <summary>
         /// Compares elements of the same type and assigns the value of the parameter to the variable if the values are not equal.
         /// </summary>
+        /// <typeparam name="T">Generic Type</typeparam>
         /// <param name="parameter">The parameter that will be compared</param>
         /// <param name="globalVariable">The variable that will be compared and then assigned if the values are not equal.</param>
         /// <returns>"attributed" returns the value assigned to the variable and "wasAttributed" returns true if the assignment to the variable occurred.</returns>
-        public static bool ComparativeAssignment(this GameObject[] parameter, ref GameObject[] globalVariable)
+        public static bool ComparativeAssignment<T>(this T[] parameter, ref T[] globalVariable) where T : struct
         {
-            if (parameter == globalVariable)
+            if (parameter.Equals(globalVariable))
                 return false;
 
             globalVariable = parameter;

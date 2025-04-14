@@ -15,6 +15,13 @@ namespace ASPax.Extensions
             return image == default;
         }
         /// <summary>
+        /// returns true if the image is null
+        /// </summary>
+        public static bool IsNull(this Image image)
+        {
+            return image == null;
+        }
+        /// <summary>
         /// Checks if a Image array is null or empty
         /// </summary>
         public static bool IsNullOrEmpty(this Image[] images)

@@ -14,3 +14,5 @@
 - Fixies problems in EmptyOrNull functions
 - Add static boolean variable for force assigments
 # 4.0.1 - Add string Comparative Assigments
+# 4.1.0 - Adjustments and new function
+- Add functions to arrays Comparactive Assigments
