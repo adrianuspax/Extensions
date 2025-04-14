@@ -12,3 +12,5 @@
 - Add new functions: Extensions Primitives and more for nullables variables
 - Adjustments in code
 - Fixies problems in EmptyOrNull functions
+- Add static boolean variable for force assigments
+# 4.0.1 - Add string Comparative Assigments
