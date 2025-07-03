@@ -15,10 +15,8 @@ namespace ASPax.Extensions
         /// <returns></returns>
         public static bool IsEmptyOrNull(this Color[] colors)
         {
-            if (colors == null || colors.Length == 0)
-                return true;
-            else
-                return colors.All(obj => obj == null);
+            if (colors == null || colors.Length == 0) return true;
+            else return colors.All(obj => obj == null);
         }
         /// <summary>
         /// Return the color with the new alpha value

@@ -25,10 +25,8 @@ namespace ASPax.Extensions
         /// <returns>return 0 to false or 1 to true</returns>
         public static int? ToInt(this bool? @bool)
         {
-            if (@bool == null)
-                return null;
-            else
-                return @bool.Value ? 1 : 0;
+            if (@bool == null) return null;
+            else return @bool.Value ? 1 : 0;
         }
         /// <summary>
         /// Converts a integer number into an boolean (false or true)
@@ -53,10 +51,9 @@ namespace ASPax.Extensions
         /// </returns>
         public static bool? ToBool(this int? @int)
         {
-            if (@int == null)
-                return null;
-            else
-                @int = Mathf.Clamp(@int.Value, 0, 1);
+            if (@int == null) return null;
+            else @int = Mathf.Clamp(@int.Value, 0, 1);
+
             return @int == 1;
         }
         /// <summary>
@@ -80,10 +77,8 @@ namespace ASPax.Extensions
         /// <returns>true if array components is null or empty</returns>
         public static bool IsNullOrEmpty(this int?[] @int)
         {
-            if (@int == null || @int.Length == 0)
-                return true;
-            else
-                return @int.All(obj => obj == null);
+            if (@int == null || @int.Length == 0) return true;
+            else return @int.All(obj => obj == null);
         }
         /// <summary>
         /// Checks if the nulable float is null
@@ -106,10 +101,8 @@ namespace ASPax.Extensions
         /// <returns>true if array components is null or empty</returns>
         public static bool IsNullOrEmpty(this float?[] @float)
         {
-            if (@float == null || @float.Length == 0)
-                return true;
-            else
-                return @float.All(obj => obj == null);
+            if (@float == null || @float.Length == 0) return true;
+            else return @float.All(obj => obj == null);
         }
         /// <summary>
         /// Checks if the nulable boolean is null
@@ -132,10 +125,8 @@ namespace ASPax.Extensions
         /// <returns>true if array components is null or empty</returns>
         public static bool IsNullOrEmpty(this bool?[] @bool)
         {
-            if (@bool == null || @bool.Length == 0)
-                return true;
-            else
-                return @bool.All(obj => obj == null);
+            if (@bool == null || @bool.Length == 0) return true;
+            else return @bool.All(obj => obj == null);
         }
         /// <summary>
         /// Compares elements of the same type and assigns the value of the parameter to the variable if the values are not equal.

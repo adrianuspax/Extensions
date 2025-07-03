@@ -20,10 +20,8 @@ namespace ASPax.Extensions
         /// </summary>
         public static bool IsNullOrEmpty(this Animator[] animators)
         {
-            if (animators == null || animators.Length == 0)
-                return true;
-            else
-                return animators.All(obj => obj == null);
+            if (animators == null || animators.Length == 0) return true;
+            else return animators.All(obj => obj == null);
         }
         /// <summary>
         /// Returns the time of the animation clip
@@ -49,7 +47,6 @@ namespace ASPax.Extensions
 
             if (length == null)
                 Debug.LogWarning($"Could not find an animatorClip whose name is {clipName} in the {animator.name} animation!");
-
             return length;
         }
         /// <summary>
@@ -75,7 +72,6 @@ namespace ASPax.Extensions
 
             if (length == null)
                 Debug.LogWarning($"Could not find an animatorClip whose id is {id} in the {animator.name} animation!", default);
-
             return length;
         }
         /// <summary>
@@ -87,7 +83,7 @@ namespace ASPax.Extensions
         {
             float? length = null;
 
-            foreach (string clipName in clipNames)
+            foreach (var clipName in clipNames)
             {
                 var value = animator.GetClipLength(clipName);
 

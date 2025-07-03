@@ -26,10 +26,8 @@ namespace ASPax.Extensions
         /// <returns>true if array components is null or empty</returns>
         public static bool IsNullOrEmpty<T>(this T[] objects) where T : Object
         {
-            if (objects == null || objects.Length == 0)
-                return true;
-            else
-                return objects.All(obj => obj == null);
+            if (objects == null || objects.Length == 0) return true;
+            else return objects.All(obj => obj == null);
         }
         /// <summary>
         /// Compares elements of the same type and assigns the value of the parameter to the variable if the values are not equal.

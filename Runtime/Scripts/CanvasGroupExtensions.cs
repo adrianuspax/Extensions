@@ -21,10 +21,8 @@ namespace ASPax.Extensions
         /// </summary>
         public static bool IsNullOrEmpty(this CanvasGroup[] canvasGroups)
         {
-            if (canvasGroups == null || canvasGroups.Length == 0)
-                return true;
-            else
-                return canvasGroups.All(obj => obj == null);
+            if (canvasGroups == null || canvasGroups.Length == 0) return true;
+            else return canvasGroups.All(obj => obj == null);
         }
         /// <summary>
         /// Set alpha in Canvas Group
@@ -34,9 +32,7 @@ namespace ASPax.Extensions
         public static void SetAlpha(this CanvasGroup[] canvasGroups, float alpha)
         {
             alpha = Mathf.Clamp01(alpha);
-
-            foreach (CanvasGroup canvasGroup in canvasGroups)
-                canvasGroup.alpha = alpha;
+            foreach (var canvasGroup in canvasGroups) canvasGroup.alpha = alpha;
         }
         /// <summary>
         /// Fade in of the panel and all its graphic elements

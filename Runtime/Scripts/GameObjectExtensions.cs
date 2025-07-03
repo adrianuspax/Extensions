@@ -9,16 +9,11 @@ namespace ASPax.Extensions
         /// Get the children of a game object
         /// </summary>
         /// <returns>Transform</returns>
-        public static Transform GetChildFromParents(this GameObject gameObject, params int[] children)
+        public static Transform GetChildFromChildren(this GameObject gameObject, params int[] children)
         {
             var transform = gameObject.transform;
-
-            if (children.IsNullOrEmpty())
-                return transform;
-
-            for (var i = 0; i < children.Length; i++)
-                transform = transform.GetChild(children[i]);
-
+            if (children.IsNullOrEmpty()) return transform;
+            for (var i = 0; i < children.Length; i++) transform = transform.GetChild(children[i]);
             return transform;
         }
         /// <summary>
@@ -37,10 +32,8 @@ namespace ASPax.Extensions
         /// <returns>true if array components is null or empty</returns>
         public static bool IsNullOrEmpty(this GameObject[] gameObjects)
         {
-            if (gameObjects == null || gameObjects.Length == 0)
-                return true;
-            else
-                return gameObjects.All(obj => obj == null);
+            if (gameObjects == null || gameObjects.Length == 0) return true;
+            else return gameObjects.All(obj => obj == null);
         }
         /// <summary>
         /// Compares elements of the same type and assigns the value of the parameter to the variable if the values are not equal.

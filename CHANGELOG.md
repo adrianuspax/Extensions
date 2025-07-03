@@ -19,3 +19,8 @@
 # 5.0.0 HotFix
 - Conflict Enum and Estruct extensions
 # 5.0.1 HotFix
+# 6.0.0 Refactor extension methods and add new component utilities
+- Refactored IsNullOrEmpty and similar methods to use concise single-line expressions across multiple extension classes.
+- Updated and renamed several methods for clarity and consistency, such as GetChildFromParents to GetChildFromChildren.
+- Added new utility methods to ComponentExtensions for parent/child traversal and object finding, and improved XML documentation for better clarity.
+- Minor code style improvements and parameter type changes for better type safety.

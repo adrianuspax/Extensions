@@ -26,10 +26,8 @@ namespace ASPax.Extensions
         /// </summary>
         public static bool IsNullOrEmpty(this Image[] images)
         {
-            if (images == null || images.Length == 0)
-                return true;
-            else
-                return images.All(obj => obj == null);
+            if (images == null || images.Length == 0) return true;
+            else return images.All(obj => obj == null);
         }
         /// <summary>
         /// Set the alpha of an image
@@ -168,7 +166,7 @@ namespace ASPax.Extensions
 
             GCK = new GradientColorKey[length];
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 GCK[i].color = colors[i];
                 GCK[i].time = i / (length - 1f);
