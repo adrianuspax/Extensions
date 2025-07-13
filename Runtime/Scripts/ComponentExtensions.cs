@@ -34,7 +34,7 @@ namespace ASPax.Extensions
         public static Transform GetChildFromParent(this Component component, uint parentIndex)
         {
             var transform = component.transform;
-            for (var i = 0; i < parentIndex; i++) transform = transform.parent;
+            for (var i = 0; i <= parentIndex; i++) transform = transform.parent;
             return transform;
         }
         /// <summary>
