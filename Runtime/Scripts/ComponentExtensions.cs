@@ -221,7 +221,7 @@ namespace ASPax.Extensions
                     return true;
                 }
 
-                for (var i = 0; i < parentIndex; i++)
+                for (var i = 0; i <= parentIndex; i++)
                     transform = transform.parent;
 
                 variable = transform.GetComponent<T>();

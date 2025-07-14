@@ -25,3 +25,4 @@
 - Added new utility methods to ComponentExtensions for parent/child traversal and object finding, and improved XML documentation for better clarity.
 - Minor code style improvements and parameter type changes for better type safety.
 # 6.1.0 HotFix
+# 6.2.0 HotFix
