@@ -1,328 +1,276 @@
-# ASPax Extensions for Unity
+[English](Documentation~/README-en.md) | [한국어](Documentation~/README-ko.md)
 
-Uma coleção abrangente de métodos de extensão C# para Unity, projetada para simplificar tarefas comuns, reduzir código repetitivo e melhorar a legibilidade e a manutenibilidade do seu projeto.
+# ASPax.Extensions
 
 ## Visão Geral
 
-Esta biblioteca oferece uma variedade de métodos de extensão para muitas das classes mais comuns da Unity, como `Component`, `GameObject`, `Animator`, `CanvasGroup`, e tipos primitivos. O objetivo é fornecer atalhos úteis e funcionalidades adicionais que não estão presentes na API padrão da Unity, permitindo que você escreva um código mais limpo e eficiente.
+`ASPax.Extensions` é uma biblioteca de scripts para Unity que estende as funcionalidades de classes comuns do Unity Engine, como `Component`, `GameObject`, `Animator`, `CanvasGroup`, e outras. A biblioteca também adiciona funcionalidades a tipos primitivos do C# como `int`, `float`, `bool` e `string`.
 
-## Principais Vantagens
+## Objetivo
 
-*   **Código Conciso:** Reduza a verbosidade do seu código com métodos de atalho para operações comuns.
-*   **Atribuição Inteligente de Componentes:** Atribua referências de componentes de forma segura e eficiente com a família de métodos `GetComponentIfNull`.
-*   **Manipulação de UI Simplificada:** Controle `CanvasGroup`, `Image` e `TextMeshProUGUI` com facilidade, incluindo animações de fade e manipulação de cores.
-*   **Segurança contra Nulos:** Métodos `IsNull` e `IsNullOrEmpty` para a maioria dos tipos da Unity, ajudando a evitar `NullReferenceException`.
-*   **Performance:** Métodos como `ComparativeAssignment` ajudam a evitar atribuições desnecessárias, o que pode ser útil em loops de `Update`.
+O objetivo principal desta biblioteca é simplificar e agilizar o desenvolvimento de jogos e aplicações em Unity, fornecendo métodos de extensão que encapsulam lógicas repetitivas e complexas em chamadas de método simples e intuitivas.
 
-## Funcionalidades e Exemplos
+## Vantagens
 
-Aqui está uma visão detalhada das funcionalidades oferecidas, com exemplos de como usá-las.
+- **Código mais limpo e legível:** Reduz a quantidade de código boilerplate.
+- **Desenvolvimento mais rápido:** Métodos prontos para tarefas comuns.
+- **Menos propenso a erros:** Lógica encapsulada e testada.
+- **Fácil de usar:** A sintaxe de métodos de extensão torna a utilização natural e fluida.
 
----
-
-### ComponentExtensions
-
-Esta é uma das classes mais poderosas da biblioteca, oferecendo métodos para buscar e atribuir componentes de forma inteligente.
-
-#### `GetComponentIfNull<T>()`
-
-Atribui um componente a uma variável somente se a variável for `null`. Isso é extremamente útil no `Awake` ou `Start` para garantir que as referências sejam configuradas.
-
-```csharp
-using ASPax.Extensions;
-using UnityEngine;
-
-public class Player : MonoBehaviour
-{
-    private Rigidbody rb;
-
-    void Awake()
-    {
-        // Em vez de:
-        // if (rb == null)
-        //  {
-        //     rb = thanform.GetChild(0).GetChild(1).GetChild(2).GetComponent<Rigidbody>();
-        // }
-        
-        // Use:
-        this.GetComponentIfNull(ref rb, 0, 1, 2);
-    }
-}
-```
-
-#### `GetComponentInChildrenIfNull<T>()` e `GetComponentsInAllChildrenIfNull<T>()`
-
-Funciona de forma semelhante, mas busca por componentes nos filhos do objeto.
-
-```csharp
-using ASPax.Extensions;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class UIController : MonoBehaviour
-{
-    private Button[] allButtons;
-
-    void Awake()
-    {
-        // Pega todos os componentes Button em todos os filhos e descendentes.
-        this.GetComponentsInAllChildrenIfNull(ref allButtons);
-    }
-}
-```
-
-#### `GetComponentInParentIfNull<T>()`
-
-Busca por um componente nos pais do objeto.
-
-```csharp
-using ASPax.Extensions;
-using UnityEngine;
-
-public class CharacterPart : MonoBehaviour
-{
-    private CharacterRoot characterRoot;
-
-    void Start()
-    {
-        // Encontra o componente CharacterRoot no objeto pai ou em qualquer ancestral.
-        this.GetComponentInParentIfNull(ref characterRoot);
-    }
-}
-```
-
-#### `FindAnyObjectByTypeIfNull<T>()` e `FindObjectsByTypeIfNull<T>()`
-
-Encontra objetos na cena.
-
-```csharp
-using ASPax.Extensions;
-using UnityEngine;
-
-public class GameManager : MonoBehaviour
-{
-    private AudioManager audioManager;
-
-    void Start()
-    {
-        // Encontra o primeiro AudioManager na cena.
-        this.FindAnyObjectByTypeIfNull(ref audioManager);
-    }
-}
-```
-
----
-
-### CanvasGroupExtensions
-
-Facilita o controle de `CanvasGroup`, especialmente para animações de UI.
-
-#### `FadeIn()` e `FadeOut()`
-
-Realiza animações de fade in e fade out de forma simples.
-
-```csharp
-using ASPax.Extensions;
-using UnityEngine;
-
-public class MainMenu : MonoBehaviour
-{
-    public CanvasGroup menuPanel;
-
-    void Start()
-    {
-        // Esconde o painel instantaneamente
-        menuPanel.alpha = 0;
-    }
-
-    public void ShowMenu()
-    {
-        // Anima o fade in do painel ao longo de 0.5 segundos.
-        menuPanel.FadeIn(0.5f, this);
-    }
-
-    public void HideMenu()
-    {
-        // Anima o fade out do painel ao longo de 0.3 segundos.
-        menuPanel.FadeOut(0.3f, this);
-    }
-}
-```
-
----
+## Funcionalidades
 
 ### AnimatorExtensions
 
-Métodos úteis para trabalhar com o componente `Animator`.
+Estende a classe `Animator` com métodos para verificar se um `Animator` ou um array de `Animator` é nulo, obter a duração de um clipe de animação pelo nome ou ID, e somar a duração de múltiplos clipes.
 
-#### `GetClipLength()`
-
-Obtém a duração de um clipe de animação pelo nome ou ID (hash).
+**Exemplos:**
 
 ```csharp
 using ASPax.Extensions;
 using UnityEngine;
 
-public class AnimationController : MonoBehaviour
+public class AnimatorExample : MonoBehaviour
 {
-    public Animator animator;
+    public Animator myAnimator;
 
     void Start()
     {
-        float? attackDuration = animator.GetClipLength("Attack");
-        if (attackDuration.HasValue)
+        if (myAnimator.IsNull())
         {
-            Debug.Log($"A animação 'Attack' dura {attackDuration.Value} segundos.");
+            Debug.Log("Animator é nulo!");
+            return;
+        }
+
+        float? clipLength = myAnimator.GetClipLength("MyAnimationClip");
+        if (clipLength.HasValue)
+        {
+            Debug.Log($"A duração do clipe é: {clipLength.Value}");
+        }
+
+        float? totalLength = myAnimator.GetSumClipsLength("Clip1", "Clip2");
+        if (totalLength.HasValue)
+        {
+            Debug.Log($"A duração total dos clipes é: {totalLength.Value}");
         }
     }
 }
 ```
 
----
+### CanvasGroupExtensions
 
-### ColorExtensions
+Estende a classe `CanvasGroup` com métodos para controlar o `alpha` (transparência), realizar animações de fade-in e fade-out, e criar um efeito de "ping-pong" no `alpha`.
 
-Extensões para a struct `Color`.
-
-#### `GetWithAlpha()`
-
-Retorna uma nova cor com um valor de alfa modificado.
+**Exemplos:**
 
 ```csharp
 using ASPax.Extensions;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class GhostEffect : MonoBehaviour
+public class CanvasGroupExample : MonoBehaviour
 {
-    public Image characterSprite;
+    public CanvasGroup myCanvasGroup;
 
-    void SetTransparency(float alpha)
+    void Start()
     {
-        // Define a transparência da imagem sem alterar sua cor base.
-        characterSprite.color = characterSprite.color.GetWithAlpha(alpha);
+        // Fade-in em 2 segundos
+        myCanvasGroup.FadeIn(2f, this);
+
+        // Fade-out em 1.5 segundos
+        myCanvasGroup.FadeOut(1.5f, this);
+
+        // Efeito de ping-pong no alpha
+        myCanvasGroup.AlphaPingPong(1f, true, this);
     }
 }
 ```
 
----
+### ColorExtensions
+
+Estende a classe `Color` com métodos para obter uma cor com um novo valor de `alpha` e para realizar atribuições comparativas.
+
+**Exemplos:**
+
+```csharp
+using ASPax.Extensions;
+using UnityEngine;
+
+public class ColorExample : MonoBehaviour
+{
+    public Color myColor = Color.red;
+
+    void Start()
+    {
+        // Obtém a cor com 50% de transparência
+        Color transparentColor = myColor.GetWithAlpha(0.5f);
+        Debug.Log($"Nova cor: {transparentColor}");
+    }
+}
+```
+
+### ComponentExtensions
+
+Estende a classe `Component` com uma variedade de métodos úteis para buscar componentes em filhos ou pais, verificar se um componente é nulo, e realizar atribuições comparativas.
+
+**Exemplos:**
+
+```csharp
+using ASPax.Extensions;
+using UnityEngine;
+
+public class ComponentExample : MonoBehaviour
+{
+    private Rigidbody rb;
+
+    void Start()
+    {
+        // Obtém o componente Rigidbody se a variável rb for nula
+        this.GetComponentIfNull(ref rb);
+
+        if (!rb.IsNull())
+        {
+            Debug.Log("Rigidbody encontrado!");
+        }
+    }
+}
+```
+
+### GameObjectExtensions
+
+Estende a classe `GameObject` com métodos para buscar filhos, verificar se um `GameObject` é nulo, e realizar atribuições comparativas.
+
+**Exemplos:**
+
+```csharp
+using ASPax.Extensions;
+using UnityEngine;
+
+public class GameObjectExample : MonoBehaviour
+{
+    public GameObject myObject;
+
+    void Start()
+    {
+        if (myObject.IsNull())
+        {
+            Debug.Log("GameObject é nulo!");
+        }
+    }
+}
+```
 
 ### ImageExtensions
 
-Métodos de extensão para o componente `Image` da UI.
+Estende a classe `Image` (UI) com métodos para definir o `alpha`, animar a cor e o `fillAmount` com interpolação (lerp), e definir a cor a partir de um gradiente.
 
-#### `SetAlphaLerp()`
-
-Anima o alfa de uma imagem ao longo do tempo.
+**Exemplos:**
 
 ```csharp
 using ASPax.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FadingImage : MonoBehaviour
+public class ImageExample : MonoBehaviour
 {
     public Image myImage;
 
     void Start()
     {
-        // Anima o alfa da imagem para 0 (transparente) em 2 segundos.
-        myImage.SetAlphaLerp(0f, 2f, this);
+        // Anima o alpha da imagem para 0.5 em 1 segundo
+        myImage.SetAlphaLerp(0.5f, 1f, this);
+
+        // Anima o preenchimento da imagem de 0 a 1 em 2 segundos
+        myImage.SetFillAmountLerp(2f, true, this);
     }
 }
 ```
 
-#### `SetFillAmountLerp()`
+### LineRendererExtensions
 
-Anima a propriedade `fillAmount` de uma imagem, útil para barras de progresso ou timers radiais.
+Estende a classe `LineRenderer` com métodos para definir a textura, o `offset` da textura, e animar o `offset` da textura.
+
+**Exemplos:**
 
 ```csharp
 using ASPax.Extensions;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class LineRendererExample : MonoBehaviour
 {
-    public Image healthFillImage;
+    public LineRenderer myLineRenderer;
+    public Texture2D myTexture;
 
-    public void AnimateDamage(float duration)
+    void Start()
     {
-        // Anima a barra de vida diminuindo.
-        healthFillImage.SetFillAmountLerp(duration, isIncreasing: false, this);
+        // Define a textura do LineRenderer
+        myLineRenderer.SetTexture(myTexture);
+
+        // Anima o offset da textura
+        myLineRenderer.StartDynamicOffset(new Vector2(0.5f, 0), this);
     }
 }
 ```
-
----
 
 ### PrimitivesExtensions
 
-Extensões para tipos primitivos como `bool`, `int`, `float` e `string`.
+Estende tipos primitivos do C# como `bool`, `int`, `float`, e `string` com métodos de conversão e verificação.
 
-#### `ToInt()` e `ToBool()`
-
-Converte entre `bool` e `int`.
-
-```csharp
-bool isEnabled = true;
-int intValue = isEnabled.ToInt(); // Retorna 1
-
-int value = 0;
-bool boolValue = value.ToBool(); // Retorna false
-```
-
-#### `Truncation()`
-
-Trunca um `float` para um número específico de casas decimais, oferecendo diferentes métodos de arredondamento.
-
-```csharp
-float value = 3.14159f;
-var truncated = value.Truncation(2);
-
-Debug.Log(truncated.Round); // 3.14
-Debug.Log(truncated.Floor); // 3.14
-Debug.Log(truncated.Ceil);  // 3.15
-```
-
-#### `GetAnimatorHash()`
-
-Converte uma string diretamente para um hash de animador, melhorando a legibilidade.
-
-```csharp
-// Em vez de:
-// int hash = Animator.StringToHash("MyTrigger");
-
-// Use:
-int hash = "MyTrigger".GetAnimatorHash();
-```
-
----
-
-### ComparativeAssignment
-
-Disponível para a maioria dos tipos, este método atribui um valor a uma variável apenas se os valores forem diferentes. Retorna `true` se a atribuição ocorreu. Isso é útil para evitar operações custosas no `Update` quando os dados não mudaram.
+**Exemplos:**
 
 ```csharp
 using ASPax.Extensions;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PrimitivesExample : MonoBehaviour
 {
-    private Vector3 lastPosition;
-    public Transform model;
-
-    void Update()
+    void Start()
     {
-        // O método só será chamado se a posição realmente mudar.
-        if (transform.position.ComparativeAssignment(ref lastPosition))
-        {
-            UpdateVisuals();
-        }
-    }
+        bool myBool = true;
+        int myInt = myBool.ToInt(); // myInt será 1
+        Debug.Log($"Valor inteiro: {myInt}");
 
-    void UpdateVisuals()
-    {
-        // Lógica custosa de atualização visual
+        string myString = "Hello";
+        int hash = myString.GetAnimatorHash();
+        Debug.Log($"Hash do Animator: {hash}");
     }
 }
 ```
+
+### StructExtensions
+
+Estende `structs` genéricos com métodos para verificar se um array de `structs` é nulo ou vazio e para realizar atribuições comparativas.
+
+### TextMeshProUGUIExtensions
+
+Estende a classe `TextMeshProUGUI` com métodos para definir o `alpha` e a cor a partir de um gradiente.
+
+**Exemplos:**
+
+```csharp
+using ASPax.Extensions;
+using TMPro;
+using UnityEngine;
+
+public class TextMeshProExample : MonoBehaviour
+{
+    public TextMeshProUGUI myText;
+
+    void Start()
+    {
+        // Define o alpha do texto para 0.5
+        myText.SetAlpha(0.5f);
+    }
+}
+```
+
+### UnityObjectExtensions
+
+Estende a classe `UnityEngine.Object` com métodos genéricos para verificar se um objeto é nulo e para realizar atribuições comparativas.
+
+### VectorExtensions
+
+Estende as classes `Vector2` e `Vector3` com métodos para verificar se um vetor é nulo, `NaN` (Not a Number), ou `default`, e para realizar atribuições comparativas.
+
+## Dependências
+
+- **Unity Engine:** Este projeto é uma biblioteca para o Unity Engine e requer um projeto Unity para ser utilizado.
+- **TextMeshPro:** O script `TextMeshProUGUIExtensions` requer que o pacote TextMeshPro esteja instalado no projeto Unity (o que é padrão na maioria das versões recentes do Unity).
