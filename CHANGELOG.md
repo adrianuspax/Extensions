@@ -27,3 +27,5 @@
 # 6.1.0 HotFix
 # 6.2.0 HotFix
 # 6.2.1 Add InputFieldExtensions
+# 6.2.2 HotFix InputFieldExtensions
+- Add folder samples
